@@ -1,3 +1,5 @@
+package ru.netology;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.AfterEach;
@@ -6,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.List;
 
@@ -13,16 +16,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InputNameTest {
     private WebDriver driver;
-    private static String WebDriverPath = "C:\\Users\\Evdokimov\\";
+    private static ChromeOptions options;
 
     @BeforeAll
     static void setUpAll() {
-        System.setProperty("webdriver.chrome.driver", WebDriverPath + "webdriver\\chromedriver.exe");
+        options = new ChromeOptions();
+        options.addArguments("--headless");
+        System.setProperty("webdriver.chrome.driver", "driver/linux/chromedriver");
     }
 
     @BeforeEach
     void setUp() {
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(options);
     }
 
     @AfterEach
@@ -35,8 +40,8 @@ public class InputNameTest {
     void testPositiveNameWithHyphen() {
         driver.get("http://localhost:9999");
         List<WebElement> elements = driver.findElements(By.className("input__control"));
-        elements.get(0).sendKeys("Михаил Салтыков-Щедрин");
-        elements.get(1).sendKeys("+79270000000");
+        elements.get(0).sendKeys("Владимир Иванов-Петров");
+        elements.get(1).sendKeys("+79270000123");
         driver.findElement(By.className("checkbox__box")).click();
         driver.findElement(By.className("button")).click();
         String text = driver.findElement(By.cssSelector("[data-test-id=order-success]")).getText();
@@ -47,23 +52,23 @@ public class InputNameTest {
     void testNegativeNameOnLatin() {
         driver.get("http://localhost:9999");
         List<WebElement> elements = driver.findElements(By.className("input__control"));
-        elements.get(0).sendKeys("Dmitry");
-        elements.get(1).sendKeys("+79270000000");
+        elements.get(0).sendKeys("Vladimir");
+        elements.get(1).sendKeys("+79270000123");
         driver.findElement(By.className("checkbox__box")).click();
         driver.findElement(By.className("button")).click();
         String text = driver.findElement(By.className("input__sub")).getText();
-        assertEquals("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.", text.trim());
+        assertEquals("Имя и Фамилия указанные неверно. Допустимы только русские буквы, пробелы и дефисы.", text.trim());
     }
 
     @Test
     void testNegativeNameOnNumbers() {
         driver.get("http://localhost:9999");
         List<WebElement> elements = driver.findElements(By.className("input__control"));
-        elements.get(0).sendKeys("333");
-        elements.get(1).sendKeys("+79270000000");
+        elements.get(0).sendKeys("999");
+        elements.get(1).sendKeys("+79270000123");
         driver.findElement(By.className("checkbox__box")).click();
         driver.findElement(By.className("button")).click();
         String text = driver.findElement(By.className("input__sub")).getText();
-        assertEquals("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.", text.trim());
+        assertEquals("Имя и Фамилия указанные неверно. Допустимы только русские буквы, пробелы и дефисы.", text.trim());
     }
 }

@@ -1,3 +1,5 @@
+package ru.netology;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.AfterEach;
@@ -6,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.List;
 
@@ -13,16 +16,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InputPhoneTest {
     private WebDriver driver;
-    private static String WebDriverPath = "C:\\Users\\Evdokimov\\";
+    private static ChromeOptions options;
 
     @BeforeAll
     static void setUpAll() {
-        System.setProperty("webdriver.chrome.driver", WebDriverPath + "webdriver\\chromedriver.exe");
+        options = new ChromeOptions();
+        options.addArguments("--headless");
+        System.setProperty("webdriver.chrome.driver", "driver/linux/chromedriver");
     }
 
     @BeforeEach
     void setUp() {
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(options);
     }
 
     @AfterEach
@@ -35,59 +40,59 @@ public class InputPhoneTest {
     void testNegativePhone10Numbers() {
         driver.get("http://localhost:9999");
         WebElement form = driver.findElement(By.className("form"));
-        form.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Василий");
-        form.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("7927000000");
+        form.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Владимир Владимиров");
+        form.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("7927000012");
         form.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         form.findElement(By.className("button")).click();
         String text = driver.findElement(By.cssSelector("[data-test-id=phone] span.input__sub")).getText();
-        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", text.trim());
+        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345654.", text.trim());
     }
 
     @Test
     void testNegativePhone12Numbers() {
         driver.get("http://localhost:9999");
         WebElement form = driver.findElement(By.className("form"));
-        form.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Василий");
-        form.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("792700000012");
+        form.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Владимир Владимиров");
+        form.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("7927000000123");
         form.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         form.findElement(By.className("button")).click();
         String text = driver.findElement(By.cssSelector("[data-test-id=phone] span.input__sub")).getText();
-        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", text.trim());
+        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345654.", text.trim());
     }
 
     @Test
     void testNegativePhoneCyrillicSymbol() {
         driver.get("http://localhost:9999");
         WebElement form = driver.findElement(By.className("form"));
-        form.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Василий");
+        form.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Владимир Владимиров");
         form.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("Одиннадцать");
         form.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         form.findElement(By.className("button")).click();
         String text = driver.findElement(By.cssSelector("[data-test-id=phone] span.input__sub")).getText();
-        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", text.trim());
+        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345654.", text.trim());
     }
 
     @Test
     void testNegativePhoneLatinSymbol() {
         driver.get("http://localhost:9999");
         WebElement form = driver.findElement(By.className("form"));
-        form.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Василий");
+        form.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Владимир Владимиров");
         form.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("TestInPhone");
         form.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         form.findElement(By.className("button")).click();
         String text = driver.findElement(By.cssSelector("[data-test-id=phone] span.input__sub")).getText();
-        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", text.trim());
+        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345654.", text.trim());
     }
 
     @Test
     void testNegativePhonePlusInside() {
         driver.get("http://localhost:9999");
         WebElement form = driver.findElement(By.className("form"));
-        form.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Василий");
+        form.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Владимир Владимиров");
         form.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("790123+45678");
         form.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         form.findElement(By.className("button")).click();
         String text = driver.findElement(By.cssSelector("[data-test-id=phone] span.input__sub")).getText();
-        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", text.trim());
+        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345654.", text.trim());
     }
 }
