@@ -67,7 +67,7 @@ public class FormTest {
         driver.findElement(By.className("checkbox__box")).click();
         driver.findElement(By.className("button")).click();
         String text = driver.findElement(By.className("input__sub")).getText();
-        assertEquals("Поле обязательно для заполнения", text.trim());
+        assertEquals("Укажите точно как в паспорте", text.trim());
     }
 
     @Test

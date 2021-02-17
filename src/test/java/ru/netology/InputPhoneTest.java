@@ -45,7 +45,7 @@ public class InputPhoneTest {
         form.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         form.findElement(By.className("button")).click();
         String text = driver.findElement(By.cssSelector("[data-test-id=phone] span.input__sub")).getText();
-        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345654.", text.trim());
+        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", text.trim());
     }
 
     @Test
@@ -57,7 +57,7 @@ public class InputPhoneTest {
         form.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         form.findElement(By.className("button")).click();
         String text = driver.findElement(By.cssSelector("[data-test-id=phone] span.input__sub")).getText();
-        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345654.", text.trim());
+        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", text.trim());
     }
 
     @Test
@@ -69,7 +69,7 @@ public class InputPhoneTest {
         form.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         form.findElement(By.className("button")).click();
         String text = driver.findElement(By.cssSelector("[data-test-id=phone] span.input__sub")).getText();
-        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345654.", text.trim());
+        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", text.trim());
     }
 
     @Test
@@ -81,7 +81,7 @@ public class InputPhoneTest {
         form.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         form.findElement(By.className("button")).click();
         String text = driver.findElement(By.cssSelector("[data-test-id=phone] span.input__sub")).getText();
-        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345654.", text.trim());
+        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", text.trim());
     }
 
     @Test
@@ -93,6 +93,6 @@ public class InputPhoneTest {
         form.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         form.findElement(By.className("button")).click();
         String text = driver.findElement(By.cssSelector("[data-test-id=phone] span.input__sub")).getText();
-        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345654.", text.trim());
+        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", text.trim());
     }
 }
